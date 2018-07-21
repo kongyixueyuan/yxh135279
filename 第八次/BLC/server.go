@@ -130,7 +130,7 @@ func yxh_sendGetBlocks(address string) {
 }
 
 // 发送处理区块及交易hash列表请求
-func rwq_sendInv(address, kind string, items [][]byte) {
+func yxh_sendInv(address, kind string, items [][]byte) {
 	inventory := yxh_inv{nodeAddress, kind, items}
 	payload := yxh_gobEncode(inventory)
 	request := append(yxh_commandToBytes("inv"), payload...)
@@ -318,7 +318,7 @@ func yxh_handleGetBlocks(request []byte, bc *Blockchain) {
 	}
 
 	blocks := bc.Yxh_GetBlockHashes()
-	rwq_sendInv(payload.Yxh_AddrFrom, "block", blocks)
+	yxh_sendInv(payload.Yxh_AddrFrom, "block", blocks)
 }
 
 //  将单个交易或区块的内容 返回给请求节点
@@ -374,7 +374,7 @@ func yxh_handleTx(request []byte, bc *Blockchain) {
 			for _, node := range knownNodes {
 				// 给其他节点分发，添加交易
 				if node != nodeAddress && node != payload.Rwq_AddFrom {
-					rwq_sendInv(node, "tx", [][]byte{tx.Yxh_ID})
+					yxh_sendInv(node, "tx", [][]byte{tx.Yxh_ID})
 				}
 			}
 		} else {
@@ -411,7 +411,7 @@ func yxh_handleTx(request []byte, bc *Blockchain) {
 
 				for _, node := range knownNodes {
 					if node != nodeAddress {
-						rwq_sendInv(node, "block", [][]byte{newBlock.Yxh_Hash})
+						yxh_sendInv(node, "block", [][]byte{newBlock.Yxh_Hash})
 					}
 				}
 
