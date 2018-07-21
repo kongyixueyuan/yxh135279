@@ -259,7 +259,7 @@ func yxh_handleBlock(request []byte, bc *Blockchain) {
 		blocksInTransit = blocksInTransit[1:]
 	} else {
 		UTXOSet := UTXOSet{bc}
-		UTXOSet.Yxh_Reindex()
+		UTXOSet.Yxh_Reset()
 	}
 }
 
@@ -400,7 +400,7 @@ func yxh_handleTx(request []byte, bc *Blockchain) {
 
 				newBlock := bc.Yxh_MineBlock(txs)
 				UTXOSet := UTXOSet{bc}
-				UTXOSet.Update(newBlock)
+				UTXOSet.Yxh_Update(newBlock)
 
 				fmt.Println("挖到新的区块!")
 

@@ -43,7 +43,7 @@ func (u UTXOSet) Yxh_FindSpendableOutputs(pubkeyHash []byte, amount int) (int, m
 	return accumulated, unspentOutputs
 }
 
-func (u UTXOSet) Yxh_Reindex() {
+func (u UTXOSet) Yxh_Reset() {
 	db := u.Yxh_Blockchain.Yxh_db
 	bucketName := []byte(utxoBucket)
 
@@ -84,7 +84,7 @@ func (u UTXOSet) Yxh_Reindex() {
 }
 
 // 生成新区块的时候，更新UTXO数据库
-func (u UTXOSet) Update(block *Block) {
+func (u UTXOSet) Yxh_Update(block *Block) {
 	err := u.Yxh_Blockchain.Yxh_db.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte(utxoBucket))
 

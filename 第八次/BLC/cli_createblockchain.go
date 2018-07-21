@@ -12,5 +12,5 @@ func (cli *CLI) yxh_createblockchain(address string,nodeID string)  {
 
 	// 生成UTXOSet数据库
 	UTXOSet := UTXOSet{bc}
-	UTXOSet.Yxh_Reindex()
+	UTXOSet.Yxh_Reset()
 }

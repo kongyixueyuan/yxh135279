@@ -209,7 +209,7 @@ func (bc *Blockchain) MineNewBlock(from []string, to []string, amount []string,n
 
 		//=====================================
 		newBlock := bc.Yxh_MineBlock(txs)
-		UTXOSet.Update(newBlock)
+		UTXOSet.Yxh_Update(newBlock)
 		return newBlock
 	}else{
 		// 如果不立即挖矿，将交易写到内存中
