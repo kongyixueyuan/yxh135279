@@ -46,7 +46,7 @@ type yxh_inv struct {
 	Yxh_Items    [][]byte
 }
 
-type rwq_txs struct {
+type yxh_txs struct {
 	Rwq_AddFrom     string
 	Rwq_Transactions [][]byte
 }
@@ -163,7 +163,7 @@ func yxh_sendTx(addr string, tx *Transaction) {
 // 发送交易内容命令
 func yxh_sendTxs(addr string, txs []*Transaction) {
 
-	data := rwq_txs{nodeAddress, Yxh_SerializeTransactions(txs)}
+	data := yxh_txs{nodeAddress, Yxh_SerializeTransactions(txs)}
 	payload := yxh_gobEncode(data)
 	request := append(yxh_commandToBytes("tx"), payload...)
 
@@ -354,7 +354,7 @@ func yxh_handleGetData(request []byte, bc *Blockchain) {
 // 处理交易
 func yxh_handleTx(request []byte, bc *Blockchain) {
 	var buff bytes.Buffer
-	var payload rwq_txs
+	var payload yxh_txs
 
 	buff.Write(request[commandLength:])
 	dec := gob.NewDecoder(&buff)
